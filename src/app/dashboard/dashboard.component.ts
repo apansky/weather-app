@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { City } from '@shared/models/city';
-import { Coords } from '@shared/models/coords';
+import { PlaceSummary } from 'wft-geodb-angular-client/lib/model/place-summary.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,13 +8,13 @@ import { Coords } from '@shared/models/coords';
 })
 export class DashboardComponent implements OnInit {
 
-  city: Partial<City>;
+  city: Partial<PlaceSummary>;
 
   ngOnInit(): void {
     this.getLocation();
   }
 
-  citySelected(city: City): void {
+  citySelected(city: PlaceSummary): void {
     this.city = city;
   }
 

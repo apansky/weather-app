@@ -1,12 +1,12 @@
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { City } from '@shared/models/city';
 import { FormControl } from '@angular/forms';
 import { startWith, switchMap } from 'rxjs/operators';
 import { getUniqueListBy } from '@shared/helpers';
 import { Router } from '@angular/router';
 import { Routes } from '@shared/enums/routes';
+import { PlaceSummary } from 'wft-geodb-angular-client/lib/model/place-summary.model';
 
 @UntilDestroy()
 @Component({
@@ -17,7 +17,7 @@ import { Routes } from '@shared/enums/routes';
 export class FavoritesComponent implements OnInit {
 
   countries: { countryCode: string, country: string }[];
-  cities: City[];
+  cities: PlaceSummary[];
   countryControl: FormControl;
 
   constructor(
@@ -30,7 +30,7 @@ export class FavoritesComponent implements OnInit {
     this.initFireStore();
   }
 
-  goToCity(city: City) {
+  goToCity(city: PlaceSummary) {
     this.router.navigate([Routes.FAVORITE], { queryParams: city })
   }
 
@@ -43,7 +43,7 @@ export class FavoritesComponent implements OnInit {
       .pipe(
         untilDestroyed(this),
         startWith(''),
-        switchMap((countryCode) => this.angularFireStore.collection<City>('cities', (ref) => countryCode && countryCode !== 'ALL' ? ref.where('countryCode','==', countryCode) : ref).valueChanges())
+        switchMap((countryCode) => this.angularFireStore.collection<PlaceSummary>('cities', (ref) => countryCode && countryCode !== 'ALL' ? ref.where('countryCode','==', countryCode) : ref).valueChanges())
       ).subscribe((cities) => {
         this.cities = cities;
         if (!this.countryControl.value || this.countryControl.value === 'ALL') {

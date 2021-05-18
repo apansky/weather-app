@@ -14,7 +14,7 @@ import { PlaceSummary } from 'wft-geodb-angular-client/lib/model/place-summary.m
 export class CitySearchComponent implements OnInit {
 
   cityControl: FormControl;
-  filteredCities: Observable<any[]>;
+  filteredCities: Observable<PlaceSummary[]>;
   @Output() readonly citySelected: EventEmitter<any> = new EventEmitter();
 
   constructor(

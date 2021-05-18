@@ -7,7 +7,12 @@
 <div *ngIf="weather">
   <div class="flex items-center justify-between mb-20">
     <h1 class="mb-0">Weather in: {{ weather.name }} {{ weather.sys.country }}</h1>
-    <button mat-raised-button color="primary" *ngIf="_city.id" (click)="addToFavorites()">Add to favorites</button>
+    <div class="flex items-center">
+      <button mat-icon-button (click)="back()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <button mat-raised-button color="primary" *ngIf="_city.id" (click)="addToFavorites()">Add to favorites</button>
+    </div>
   </div>
   <div>
     <strong>{{ weather.main.temp | number: '1.0-0' }} &deg; C</strong>

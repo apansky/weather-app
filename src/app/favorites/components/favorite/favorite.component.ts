@@ -1,7 +1,7 @@
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { City } from '@shared/models/city';
+import { PlaceSummary } from 'wft-geodb-angular-client/lib/model/place-summary.model';
 
 @UntilDestroy()
 @Component({
@@ -11,7 +11,7 @@ import { City } from '@shared/models/city';
 })
 export class FavoriteComponent implements OnInit {
 
-  city: City
+  city: Partial<PlaceSummary>
 
   constructor(
     private readonly activatedRoute: ActivatedRoute
@@ -20,7 +20,7 @@ export class FavoriteComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.queryParams
       .pipe(untilDestroyed(this))
-      .subscribe((params) => this.city = params as City);
+      .subscribe((params) => this.city = params as PlaceSummary);
   }
 
 }
