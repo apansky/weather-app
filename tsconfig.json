@@ -3,6 +3,17 @@
   "compileOnSave": false,
   "compilerOptions": {
     "baseUrl": "./",
+    "paths": {
+      "@shared/*": [
+        "src/app/shared/*",
+      ],
+      "@src/*": [
+        "src/app/*"
+      ],
+      "@environments/*": [
+        "src/environments/*",
+      ]
+    },
     "outDir": "./dist/out-tsc",
     "forceConsistentCasingInFileNames": true,
     "strict": true,

@@ -1,0 +1,36 @@
+<div class="mb-20" *ngIf="center">
+  <google-map [center]="center" [height]="'400px'" [width]="'100%'">
+    <map-marker></map-marker>
+  </google-map>
+</div>
+
+<div *ngIf="weather">
+  <div class="flex items-center justify-between mb-20">
+    <h1 class="mb-0">Weather in: {{ weather.name }} {{ weather.sys.country }}</h1>
+    <button mat-raised-button color="primary" *ngIf="_city.id" (click)="addToFavorites()">Add to favorites</button>
+  </div>
+  <div>
+    <strong>{{ weather.main.temp | number: '1.0-0' }} &deg; C</strong>
+  </div>
+  <p>{{ weather.weather[0].description }}</p>
+  <div class="flex justify-between">
+    <strong>Humidity</strong>
+    <div>{{ weather.main.humidity }} %</div>
+  </div>
+
+  <div class="flex justify-between">
+    <strong>Pressure</strong>
+    <div>{{ weather.main.pressure }} hpa</div>
+  </div>
+
+  <div class="flex justify-between">
+    <strong>Sunrise</strong>
+    <div>{{ weather.sys.sunrise * 1000 | date: 'H:mm' }}</div>
+  </div>
+
+  <div class="flex justify-between">
+    <strong>Sunset</strong>
+    <div>{{ weather.sys.sunset * 1000 | date: 'H:mm' }}</div>
+  </div>
+</div>
+

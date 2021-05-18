@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map, startWith, switchMap } from 'rxjs/operators';
-import { WeatherApiService } from './../shared/services/weather-api.service';
+import { City } from '@shared/models/city';
+import { Coords } from '@shared/models/coords';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,26 +9,25 @@ import { WeatherApiService } from './../shared/services/weather-api.service';
 })
 export class DashboardComponent implements OnInit {
 
-  myControl = new FormControl();
-  options: string[] = ['One', 'Two', 'Three'];
-  filteredOptions: any;
+  city: Partial<City>;
 
-  constructor(
-    private readonly weatherApiService: WeatherApiService
-  ) { }
-
-  ngOnInit() {
-    this.filteredOptions = this.myControl.valueChanges
-      .pipe(
-        debounceTime(400),
-        distinctUntilChanged(),
-        filter((val) => !!val),
-        switchMap((val) => this.weatherApiService.locationSearch(val))
-    );
+  ngOnInit(): void {
+    this.getLocation();
   }
 
-  displayFn(location: any): string {
-    return location && location.title ? location.title : '';
+  citySelected(city: City): void {
+    this.city = city;
+  }
+
+  private getLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.city = {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude
+        }
+      });
+    }
   }
 
 }

@@ -1,1 +1,18 @@
-<p>favorites works!</p>
+<div class="p-20">
+  <div>
+    <mat-form-field appearance="fill">
+      <mat-label>Country name</mat-label>
+      <mat-select [formControl]="countryControl">
+        <mat-option [value]="'ALL'">All countries</mat-option>
+        <mat-option *ngFor="let country of countries" [value]="country.countryCode">{{ country.country }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-card class="mb-20 pointer" *ngFor="let city of cities" (click)="goToCity(city)">
+    <mat-card-header>
+      <mat-card-title>{{ city.name }}</mat-card-title>
+      <mat-card-subtitle>{{ city.region }}</mat-card-subtitle>
+    </mat-card-header>
+  </mat-card>
+</div>

@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field class="stretch-x">
   <input
     matInput
     placeholder="Begin typing a city name"
@@ -8,7 +8,7 @@
 
   <mat-autocomplete
     #autoCity="matAutocomplete"
-    (optionSelected)="onCitySelected($event.option.value)"
+    (optionSelected)="citySelected.emit($event.option.value)"
     [displayWith]="getCityDisplayName">
     <mat-option *ngFor="let city of filteredCities | async" [value]="city">
       {{getCityDisplayName(city)}}

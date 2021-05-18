@@ -1,1 +1,5 @@
-<app-city-search></app-city-search>
+<div class="p-20">
+  <app-city-search (citySelected)="citySelected($event)"></app-city-search>
+
+  <app-city-detail [city]="city"></app-city-detail>
+</div>

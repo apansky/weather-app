@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { debounceTime, filter, map, switchMap } from 'rxjs/operators';
@@ -15,6 +15,7 @@ export class CitySearchComponent implements OnInit {
 
   cityControl: FormControl;
   filteredCities: Observable<any[]>;
+  @Output() readonly citySelected: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private readonly geoDbService: GeoDbService
@@ -51,9 +52,5 @@ export class CitySearchComponent implements OnInit {
     name += ', ' + city.country;
 
     return name;
-  }
-
-  onCitySelected(city: PlaceSummary) {
-    console.log(city);
   }
 }
