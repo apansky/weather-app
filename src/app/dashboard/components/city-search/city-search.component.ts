@@ -15,7 +15,7 @@ export class CitySearchComponent implements OnInit {
 
   cityControl: FormControl;
   filteredCities: Observable<PlaceSummary[]>;
-  @Output() readonly citySelected: EventEmitter<any> = new EventEmitter();
+  @Output() readonly citySelected: EventEmitter<PlaceSummary> = new EventEmitter();
 
   constructor(
     private readonly geoDbService: GeoDbService

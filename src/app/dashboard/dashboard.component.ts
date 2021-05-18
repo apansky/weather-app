@@ -9,6 +9,7 @@ import { PlaceSummary } from 'wft-geodb-angular-client/lib/model/place-summary.m
 export class DashboardComponent implements OnInit {
 
   city: Partial<PlaceSummary>;
+  loading = false;
 
   ngOnInit(): void {
     this.getLocation();
@@ -20,7 +21,9 @@ export class DashboardComponent implements OnInit {
 
   private getLocation(): void {
     if (navigator.geolocation) {
+      this.loading = true;
       navigator.geolocation.getCurrentPosition((position) => {
+        this.loading = false;
         this.city = {
           latitude: position.coords.latitude,
           longitude: position.coords.longitude

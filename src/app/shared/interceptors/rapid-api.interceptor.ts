@@ -9,9 +9,6 @@ import { environment } from '@environments/environment';
 export class RapidApiInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
-    return next.handle(req.clone({ setHeaders: {
-      'x-rapidapi-key': environment.apiKey
-    }}));
+    return next.handle(req.clone(req.url.includes('rapidapi') && { setHeaders: { 'x-rapidapi-key': environment.apiKey }}));
   }
 }
